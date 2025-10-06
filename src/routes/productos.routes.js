@@ -5,6 +5,6 @@ import { actualizarProducto, crearProducto, borrarProducto, leerProductos, test 
 const router = Router();
 
 router.route("/test").get(test);
-router.route("/").post(crearProducto);
+router.route("/").post(crearProducto).get(leerProductos);
 
 export default router;

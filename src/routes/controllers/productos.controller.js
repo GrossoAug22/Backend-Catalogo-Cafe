@@ -6,9 +6,15 @@ export const test = (req, res) => {
   res.send("Test OK");
 };
 
-export const leerProductos = (req, res) => {
-  res.status(200);
-  res.send("Leer productos OK");
+export const leerProductos = async(req, res) => {
+  try {
+    const listaProductos = await Producto.find();
+    res.status(200).json(listaProductos);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error al leer los productos" });
+  }
 };
 
 export const crearProducto = async (req, res) => {
