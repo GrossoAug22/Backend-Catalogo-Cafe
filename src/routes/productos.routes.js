@@ -6,6 +6,6 @@ const router = Router();
 
 router.route("/test").get(test);
 router.route("/").post(crearProducto).get(leerProductos);
-router.route("/:id").get(leerProductosID).delete(borrarProducto);
+router.route("/:id").get(leerProductosID).delete(borrarProducto).put(actualizarProducto);
 
 export default router;

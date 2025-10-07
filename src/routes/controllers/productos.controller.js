@@ -40,9 +40,18 @@ export const crearProducto = async (req, res) => {
     res.status(500).send({ message: "Error al crear el producto"});
   }
 };
-export const actualizarProducto = (req, res) => {
-  res.status(200);
-  res.send("Actualizar producto OK");
+export const actualizarProducto = async(req, res) => {
+  try {
+    const productoActualizado = await Producto.findByIdAndUpdate(req.params.id, req.body);
+    res.status(200).json({ mensaje: "Producto actualizado con éxito", producto: productoActualizado });
+    if(!productoActualizado) {
+      return res.status(404).json({ mensaje: "Producto no encontrado" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error al actualizar el producto" });
+  
+  }
 };
 export const borrarProducto = async(req, res) => {
   try {
