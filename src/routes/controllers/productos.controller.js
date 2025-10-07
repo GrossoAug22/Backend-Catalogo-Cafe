@@ -16,6 +16,17 @@ export const leerProductos = async(req, res) => {
     res.status(500).send({ message: "Error al leer los productos" });
   }
 };
+export const leerProductosID = async(req, res) => {
+  try {
+const productoBuscado = await Producto.findById(req.params.id);
+if(!productoBuscado){
+  return res.status(404).json({mensaje: "Producto no encontrado"});}
+res.status(200).json(productoBuscado);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error al obtener producto por id" });
+  }
+};
 
 export const crearProducto = async (req, res) => {
   try {
