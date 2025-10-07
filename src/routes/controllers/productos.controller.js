@@ -44,7 +44,15 @@ export const actualizarProducto = (req, res) => {
   res.status(200);
   res.send("Actualizar producto OK");
 };
-export const borrarProducto = (req, res) => {
-  res.status(200);
-  res.send("Borrar producto OK");
+export const borrarProducto = async(req, res) => {
+  try {
+    const productoBorrado = await Producto.findByIdAndDelete(req.params.id);
+    if(!productoBorrado) {
+      return res.status(404).json({ mensaje: "Producto no encontrado" });
+    }
+    res.status(200).json({ mensaje: "Producto borrado con éxito", producto: productoBorrado });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error al borrar el producto" });
+  }
 };
